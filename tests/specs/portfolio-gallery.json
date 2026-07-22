@@ -1,13 +1,13 @@
 [
   {
-    "name": "View Portfolio",
+    "name": "View Portfolio shows empty state",
     "steps": [
       {
         "expect": [
           {
-            "method": "sendMessage",
+            "method": "editMessageText",
             "payload": {
-              "text": "Browse curated portfolio images filtered by service"
+              "text": "Our portfolio is empty — check back soon!"
             }
           }
         ],

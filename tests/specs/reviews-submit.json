@@ -1,19 +1,53 @@
 [
   {
-    "name": "Submit Review",
+    "name": "Submit Review shows rating selection",
     "steps": [
       {
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Access review submission form with rating and photo upload"
+              "text": "We'd love your feedback!\n\nHow was your experience? Tap a star rating below:"
             }
           }
         ],
         "send": {
           "callback": "reviews:submit"
         }
+      }
+    ]
+  },
+  {
+    "name": "Review flow - select rating shows text prompt",
+    "steps": [
+      {
+        "send": { "callback": "reviews:submit" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "We'd love your feedback!\n\nHow was your experience? Tap a star rating below:" } }
+        ]
+      },
+      {
+        "send": { "callback": "reviews:rate:5" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "⭐⭐⭐⭐⭐ — great!\n\nTell us more about your experience (or tap Skip to submit just the rating):" } }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Review flow - back to menu",
+    "steps": [
+      {
+        "send": { "callback": "reviews:submit" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "We'd love your feedback!\n\nHow was your experience? Tap a star rating below:" } }
+        ]
+      },
+      {
+        "send": { "callback": "menu:main" },
+        "expect": [
+          { "method": "editMessageText", "payload": { "text": "👋 Welcome! Tap a button below to get started." } }
+        ]
       }
     ]
   }

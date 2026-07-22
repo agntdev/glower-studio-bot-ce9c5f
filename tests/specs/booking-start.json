@@ -1,19 +1,53 @@
 [
   {
-    "name": "Book Service",
+    "name": "Book Service shows category selection",
     "steps": [
       {
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Initiate service selection and booking flow"
+              "text": "Which category interests you?"
             }
           }
         ],
         "send": {
           "callback": "booking:start"
         }
+      }
+    ]
+  },
+  {
+    "name": "Booking flow - select category shows services",
+    "steps": [
+      {
+        "send": { "callback": "booking:start" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "Which category interests you?" } }
+        ]
+      },
+      {
+        "send": { "callback": "booking:cat:Hair" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "Hair services:" } }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Booking flow - back to menu",
+    "steps": [
+      {
+        "send": { "callback": "booking:start" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "Which category interests you?" } }
+        ]
+      },
+      {
+        "send": { "callback": "menu:main" },
+        "expect": [
+          { "method": "editMessageText", "payload": { "text": "👋 Welcome! Tap a button below to get started." } }
+        ]
       }
     ]
   }
