@@ -1,19 +1,68 @@
 [
   {
-    "name": "/admin",
+    "name": "/admin shows dashboard for first user (auto-registers as admin)",
     "steps": [
       {
+        "send": { "text": "/admin" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Open admin dashboard for service/portfolio management"
+              "text": "Admin Dashboard"
             }
           }
-        ],
-        "send": {
-          "text": "/admin"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "/admin shows access denied for non-admin after first admin exists",
+    "steps": [
+      {
+        "send": { "text": "/admin", "userId": 1 },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "Admin Dashboard" } }
+        ]
+      },
+      {
+        "send": { "text": "/admin", "userId": 999 },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "You're not an admin. Only existing admins can access this dashboard." } }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Admin can view bookings",
+    "steps": [
+      {
+        "send": { "text": "/admin" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "Admin Dashboard" } }
+        ]
+      },
+      {
+        "send": { "callback": "admin:bookings" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "No bookings yet." } }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Admin can view reviews",
+    "steps": [
+      {
+        "send": { "text": "/admin" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "Admin Dashboard" } }
+        ]
+      },
+      {
+        "send": { "callback": "admin:reviews" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "No pending reviews to moderate." } }
+        ]
       }
     ]
   }
