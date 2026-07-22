@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Book Service",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Initiate service selection and booking flow"
+            }
+          }
+        ],
+        "send": {
+          "callback": "booking:start"
+        }
+      }
+    ]
+  }
+]
